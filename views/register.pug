@@ -1,0 +1,17 @@
+extends layout
+
+block content
+  h1= title
+  form(action="/", method="POST")
+    input(name="login", type="text", placeholder="Chose your login")
+    input(name="passwd", type="password", placeholder="Enter the password")
+    input(name="passwd_confirm", type="email", placeholder="Confirme the password")
+    input(name="firstname", type="text", placeholder="Enter your first name")
+    input(name="lastname", type="text", placeholder="Enter your last name")
+    input(name="birthday", type="date", placeholder="Enter your birthday")
+    input(name="sexe", type="radio", value="male", checked)Male
+    input(name="sexe", type="radio", value="female")Female
+    input(name="sexe", type="radio", value="other")Other
+    
+    input(name="email", type="email", placeholder="Enter email")
+    button(type="Submit") Submit
