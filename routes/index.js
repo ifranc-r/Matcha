@@ -5,7 +5,10 @@ let register = require("../controllers/register")
 /* GET home page. */
 router.get('/', landing.get_landing);
 /* GET register page*/
-router.get('/', landing.get_register);
+router.post('/', landing.submit_lead);
 
-router.post('/', landing.submit_lead)
+
+router.get('/register', register.get_register);
+
+router.post('/register', register.submit_registration);
 module.exports = router;
