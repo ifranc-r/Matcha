@@ -8,7 +8,7 @@ exports.connection_mysql = function(db_exist){
   // Connection to database
   if (db_exist){
     var conf = mysql_info.database
-    conf.database = mysql_info.name_db
+    conf["database"] = mysql_info.name_db
     var con = mysql.createConnection(conf);
   }
   else {

@@ -6,9 +6,12 @@ class Factory {
     this.tab_name = tab_name;
   }
 
-  create(attributes, values){
-    let sql = "INSERT INTO ${this.tab_name} ${attributes}\
-          VALUES ${values}";
+  create(dic){
+    let attributes = "("+Object.keys(dic).join()+")";
+    let values = "(\'"+Object.values(dic).join("\',\'")+"\')";
+    let sql = "INSERT INTO "+ this.tab_name + " " + attributes+
+          " VALUES "+ values;
+    console.log(sql);
     this.con.query(sql, function(err, result){
       if (err){
         console.log('error', err.message, err.stack)
@@ -19,7 +22,16 @@ class Factory {
   }
 
   modif(settings, where){
-    let sql = "UPDATE $this->_tab_name SET $settings WHERE $where";
+    var settings_string = "";
+    Object.keys(settings).forEach(function(key){
+      if (settings_string != "")
+        settings_string = settings_string +","+ key+"=\'"+settings[key]+"\'";
+      else
+        settings_string = key+"=\'"+settings[key]+"\'";
+    });
+
+    let sql = "UPDATE " + this.tab_name + " SET " + settings_string + " WHERE " + where;
+    console.log(sql);
     this.con.query(sql, function(err, result){
       if (err){
         console.log('error', err.message, err.stack)
@@ -30,7 +42,7 @@ class Factory {
   }
 
   del(where){
-    let sql = "DELETE FROM ${this.tab_name} WHERE ${where}";
+    let sql = "DELETE FROM " +this.tab_name +" WHERE " +where;
     this.con.query(sql, function(err, result){
       if (err){
         console.log('error', err.message, err.stack)
@@ -41,7 +53,7 @@ class Factory {
   }
 
   search(where){
-    let sql = "SELECT * FROM ${this.tab_name} WHERE ${where}";
+    let sql = "SELECT * FROM "+this.tab_name+" WHERE "+ where;
     this.con.query(sql, function(err, result, fields){
       if (err){
         console.log('error', err.message, err.stack)
@@ -52,7 +64,7 @@ class Factory {
   }
 
   last_id(){
-    let sql = "SELECT * FROM ${this.tab_name} ORDER BY id DESC LIMIT 1";
+    let sql = "SELECT * FROM "+this.tab_name+" ORDER BY id DESC LIMIT 1";
     this.con.query(sql, function(err, result, fields){
       if (err){
         console.log('error', err.message, err.stack)
@@ -62,6 +74,5 @@ class Factory {
     });
   }
 }
-var fact_test = new Factory("user")
-fact_test.create("(login,passwd,mail,last_connection)","('login','passwd','inti@max.fr','0000-00-00 00:00:00')")
+
 exports.users = Factory

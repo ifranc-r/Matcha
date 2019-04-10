@@ -1,0 +1,51 @@
+Factory is a sort of mini ORM where you can manage your tables in a DATABASE
+
+initialize Class
+parameter 1 name of table
+
+      var fact_test = new Factory("user")
+
+
+
+// Create a row
+function create(dic)
+parameter 1 : the dict with attributes and values to create
+it will create a raw in the tab with the same attributes and VALUES
+from the dic to the table
+
+    let dic = {
+            login:'login122',
+              passwd:'passwd2',
+              mail:'inti@max.frrew',
+              last_connection: '0000-00-00 00:00:10'
+              }
+    fact_test.create(dic)
+
+
+// Modif a Rows
+function modif(dic)
+parameter 1 : the dict with attributes and values to modify
+parameter 2 : the sql search where you need to set
+Will modify a raw in the tab with the same attributes and VALUES
+from the dic to the table where there is the value searched
+
+    let dic_modif = {
+      login:'login222',
+      passwd:'Jaime les poneys',
+      mail:'inti@max.br',
+      last_connection: '2010-01-00 10:10:10'
+      }
+    fact_test.modif(dic_modif, "login='login122'")
+
+// Del a Rows
+parameter 1 : the sql search where you need to delete
+// fact_test.del("id=2")
+
+// search
+parameter 1 : the sql search where you need to search
+// fact_test.search("id=1")
+
+
+// Get the last row created
+will return the last row
+// fact_test.last_id();
