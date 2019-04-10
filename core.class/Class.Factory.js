@@ -73,6 +73,10 @@ class Factory {
       console.log(result);
     });
   }
+  end(){
+     this.con.end()
+     console.log("Deconnected !");
+  }
 }
 
-exports.users = Factory
+module.exports = Factory

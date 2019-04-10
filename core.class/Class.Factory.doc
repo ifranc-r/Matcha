@@ -39,13 +39,19 @@ from the dic to the table where there is the value searched
 
 // Del a Rows
 parameter 1 : the sql search where you need to delete
-// fact_test.del("id=2")
+
+          fact_test.del("id=2")
 
 // search
 parameter 1 : the sql search where you need to search
-// fact_test.search("id=1")
+
+          fact_test.search("id=1")
 
 
 // Get the last row created
 will return the last row
-// fact_test.last_id();
+
+            fact_test.last_id();
+
+// End connection_mysql
+            fact_test.end()
