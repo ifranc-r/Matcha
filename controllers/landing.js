@@ -1,6 +1,6 @@
 
 exports.get_landing = function(req, res, next) {
-  res.render('index', { title: 'Express 2' });
+  res.render('index', { title: 'Matcha' });
 }
 
 exports.submit_lead = function(req, res, next) {

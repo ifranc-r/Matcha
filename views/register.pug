@@ -2,22 +2,31 @@ extends layout
 
 block content
   h1= title
-  form(action="/register", method="POST")
-    input(name="login", type="text", placeholder="Chose your login")
-    input(name="passwd", type="password", placeholder="Enter the password")
-    input(name="passwd_confirm", type="password", placeholder="Confirme the password")
-    input(name="firstname", type="text", placeholder="Enter your first name")
-    input(name="lastname", type="text", placeholder="Enter your last name")
-    //- input(name="birthday", type="date", placeholder="Enter your birthday")
-    //- select(name="sexe")
-    //-   option(value="0") --- Select your Sexe ---
-    //-   option(value="male") Male
-    //-   option(value="female") Female
-    //-   option(value="other") Other
-    //- select(name="orientation")
-    //-   option(value="0") --- Select your Sexual Orientation ---
-    //-   option(value="hetero") Heterosexual
-    //-   option(value="homo") Homosexual
-    //-   option(value="bisexual") Bisexual
-    input(name="email", type="email", placeholder="Enter email")
-    button(type="Submit") Submit
+  if success == true
+    section
+      h2 Successful Validation!
+  else
+    if errors
+      section
+        ul
+          each error in errors
+            li #{error.msg}
+    form(action="/register", method="POST")
+      input(name="login", type="text", placeholder="Chose your login")
+      input(name="passwd",id="passwd", type="password", placeholder="Enter the password")
+      input(name="passwd_confirm",id="passwd-confirm", type="password", placeholder="Confirme the password", data-rule-equalTo="#passwd")
+      input(name="firstname", type="text", placeholder="Enter your first name")
+      input(name="lastname", type="text", placeholder="Enter your last name")
+                //- input(name="birthday", type="date", placeholder="Enter your birthday")
+                //- select(name="sexe")
+                //-   option(value="0") --- Select your Sexe ---
+                //-   option(value="male") Male
+                //-   option(value="female") Female
+                //-   option(value="other") Other
+                //- select(name="orientation")
+                //-   option(value="0") --- Select your Sexual Orientation ---
+                //-   option(value="hetero") Heterosexual
+                //-   option(value="homo") Homosexual
+                //-   option(value="bisexual") Bisexual
+      input(name="email", type="email", placeholder="Enter email")
+      button(type="Submit") Submit

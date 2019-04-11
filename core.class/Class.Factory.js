@@ -54,13 +54,16 @@ class Factory {
 
   search(where){
     let sql = "SELECT * FROM "+this.tab_name+" WHERE "+ where;
-    this.con.query(sql, function(err, result, fields){
-      if (err){
-        console.log('error', err.message, err.stack)
-        return;
-      }
-      console.log(result);
-    });
+    return new Promise(function(resolve, reject){
+      this.con.query(sql, function(err, result, fields){
+        if(result === undefined){
+          reject(new Error("Error rows is undefined"));
+        }
+        else{
+          resolve(result);
+        }
+      })
+    }.bind(this));
   }
 
   last_id(){
@@ -73,6 +76,7 @@ class Factory {
       console.log(result);
     });
   }
+
   end(){
      this.con.end()
      console.log("Deconnected !");

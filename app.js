@@ -7,6 +7,10 @@ var logger = require('morgan');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
+var bodyParser = require('body-parser')
+var expressValidator = require('express-validator')
+var expressSession = require('express-session')
+
 var app = express();
 
 // view engine setup
@@ -18,6 +22,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(bodyParser.json())
+app.use(expressValidator())
+app.use(expressSession({secret: 'max', saveUninitialized: false, resave: false}))
+
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);

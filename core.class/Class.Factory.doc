@@ -45,7 +45,15 @@ parameter 1 : the sql search where you need to delete
 // search
 parameter 1 : the sql search where you need to search
 
-          fact_test.search("id=1")
+                  var fact_test = new Factory("user");
+                  
+                  fact_test.search("id=1")
+                  .then(function(results){
+                    console.log(results);
+                    })
+                  .catch(function(err){
+                    console.log("Promise rejection error: "+ err);
+                    });
 
 
 // Get the last row created
