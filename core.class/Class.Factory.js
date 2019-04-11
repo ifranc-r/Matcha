@@ -56,6 +56,7 @@ class Factory {
     let sql = "SELECT * FROM "+this.tab_name+" WHERE "+ where;
     return new Promise(function(resolve, reject){
       this.con.query(sql, function(err, result, fields){
+        // console.log(result);
         if(result === undefined){
           reject(new Error("Error rows is undefined"));
         }
@@ -82,5 +83,13 @@ class Factory {
      console.log("Deconnected !");
   }
 }
+// var fact_test = new Factory("user")
+// let dic = {
+//         login:'login122',
+//           passwd:'passwd2',
+//           mail:'inti@max.frrew',
+//           last_connection: '0000-00-00 00:00:10'
+//           }
+// fact_test.create(dic)
 
 module.exports = Factory

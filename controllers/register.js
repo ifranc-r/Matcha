@@ -2,7 +2,7 @@ const Factory = require("../core.class/Class.Factory");
 
 
 exports.get_register = function(req, res, next) {
-  res.render('register', { title: 'Create your account', success: req.session.success, errors: req.session.errors });
+  res.render('register', { title: 'Create your account', success: false, errors: req.session.errors });
 }
 
 exports.submit_registration = function(req, res, next) {
@@ -12,8 +12,28 @@ exports.submit_registration = function(req, res, next) {
   console.log("firstname:", req.body.firstname);
   console.log("lastname:", req.body.lastname);
   console.log("email:", req.body.email);
+  var tab_user = new Factory("user")
   // Check Validation
-  req.check('email', 'Invalid email address').isEmail();
+  req.check('email', 'Invalid email address')
+  .isEmail()
+  .custom(value =>{
+    var check = true
+    let test = tab_user.search(`mail='${value}'`).then(results => {
+          // console.log("dewdew", results)
+          if (results){
+            check = false
+            console.log(check, " yes");
+          }
+          else {
+            check =  true
+          }
+        }).catch(function(err){
+          console.log("Promise rejection error: "+ err);
+          });
+    console.log(test);
+    return check
+  })
+
 
   req.check('passwd', 'Password needs at least: 4 characters, 1 number, 1 Upper case;')
   .isLength({min :4})
@@ -22,9 +42,10 @@ exports.submit_registration = function(req, res, next) {
 
   var errors = req.validationErrors();
   if (errors){
-    console.log(session.errors);
-    req.session.errors = errors;
-    req.session.success = false
+    // console.log(req.session.errors);
+    return res.status(200).json({
+        response: errors
+      })
   }
   else {
     req.session.success = true
@@ -34,12 +55,11 @@ exports.submit_registration = function(req, res, next) {
       mail : req.body.email,
       last_connection: '0000-00-00 00:00:00'
     }
-    console.log(register_dic);
-    var tab_user = new Factory("user")
-    tab_user.create(register_dic);
+    // console.log(register_dic);
+    // tab_user.create(register_dic);
     console.log("Success you have been register");
-    tab_user.end();
   }
+  tab_user.end();
   res.redirect('/register');
 }
 
