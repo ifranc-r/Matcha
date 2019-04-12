@@ -12,6 +12,7 @@ var expressValidator = require('express-validator')
 var expressSession = require('express-session')
 
 var app = express();
+const Factory = require("./core.class/Class.Factory");
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -23,7 +24,15 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.json())
-app.use(expressValidator())
+app.use(expressValidator({
+    customValidators: {
+      isEmailAvailable(email) {
+        var tab_user = new Factory("user");
+        return tab_user.exist(`mail='${email}'`);
+      }
+    }
+  })
+);
 app.use(expressSession({secret: 'max', saveUninitialized: false, resave: false}))
 
 

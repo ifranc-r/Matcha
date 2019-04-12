@@ -66,6 +66,20 @@ class Factory {
       })
     }.bind(this));
   }
+  
+  exist(where){
+    let sql = "SELECT * FROM "+this.tab_name+" WHERE "+ where;
+    return new Promise(function(resolve, reject){
+      this.con.query(sql, function(err, result, fields){
+        if(result === undefined){
+          reject();
+        }
+        else{
+          resolve();
+        }
+      })
+    }.bind(this));
+  }
 
   last_id(){
     let sql = "SELECT * FROM "+this.tab_name+" ORDER BY id DESC LIMIT 1";

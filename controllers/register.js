@@ -16,23 +16,8 @@ exports.submit_registration = function(req, res, next) {
   // Check Validation
   req.check('email', 'Invalid email address')
   .isEmail()
-  .custom(value =>{
-    var check = true
-    let test = tab_user.search(`mail='${value}'`).then(results => {
-          // console.log("dewdew", results)
-          if (results){
-            check = false
-            console.log(check, " yes");
-          }
-          else {
-            check =  true
-          }
-        }).catch(function(err){
-          console.log("Promise rejection error: "+ err);
-          });
-    console.log(test);
-    return check
-  })
+  .isEmailAvailable().withMessage('Email already used')
+
 
 
   req.check('passwd', 'Password needs at least: 4 characters, 1 number, 1 Upper case;')
@@ -40,14 +25,11 @@ exports.submit_registration = function(req, res, next) {
   .matches(/\d/)
   .equals(req.body.passwd_confirm).withMessage('Password not same');
 
+
+
   var errors = req.validationErrors();
-  if (errors){
-    // console.log(req.session.errors);
-    return res.status(200).json({
-        response: errors
-      })
-  }
-  else {
+  console.log(errors);
+  req.asyncValidationErrors().then(() => {
     req.session.success = true
     let register_dic = {
       login : req.body.login,
@@ -58,7 +40,11 @@ exports.submit_registration = function(req, res, next) {
     // console.log(register_dic);
     // tab_user.create(register_dic);
     console.log("Success you have been register");
-  }
+  }, errors => {
+    return res.status(200).json({
+        response: errors
+      })
+  });
   tab_user.end();
   res.redirect('/register');
 }
