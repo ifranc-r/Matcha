@@ -42,24 +42,41 @@ parameter 1 : the sql search where you need to delete
 
           fact_test.del("id=2")
 
-// search
+// get_all() is a async function return all the tab
 parameter 1 : the sql search where you need to search
 
-                  var fact_test = new Factory("user");
-                  
-                  fact_test.search("id=1")
-                  .then(function(results){
-                    console.log(results);
-                    })
-                  .catch(function(err){
-                    console.log("Promise rejection error: "+ err);
-                    });
+                  async () => {
+                    var fact_test = await new Factory("user")
+                    const result = await fact_test.search("id = 1")
+                    console.log(result)
+                  }
 
+// search(where) is a async function return the rows of query searched
+parameter 1 : the sql search where you need to search
 
-// Get the last row created
+                  async () => {
+                    var fact_test = await new Factory("user")
+                    const result = await fact_test.search("id = 1")
+                    console.log(result)
+                  }
+
+// exist(where) is a async function that return a bool is the search query exist
+  parameter 1 : the sql search where you need to search
+
+                  async () => {
+                    var fact_test = await new Factory("user")
+                    const result = await fact_test.search("id = 1")
+                    console.log(result)
+                  }
+
+// Get the last row created is a async function
 will return the last row
 
-            fact_test.last_id();
+                    async () => {
+                      var fact_test = await new Factory("user")
+                      const result = await fact_test.last_id()
+                      console.log(result)
+                    }
 
 // End connection_mysql
             fact_test.end()

@@ -1,6 +1,6 @@
 exports.connection_mysql = function(db_exist){
   // Import lib MYSQL
-  var mysql = require('mysql');
+  var mysql = require('mysql2');
 
   // Import information for the database
   var mysql_info = require("../config/db_config");

@@ -10,7 +10,7 @@ router.get('/', landing.get_landing);
 router.post('/', landing.submit_lead);
 
 router.get('/login', login.get_login);
-router.get('/users', users.get_all);
+router.get('/users', users.get_all_user);
 
 router.get('/register', register.get_register);
 
