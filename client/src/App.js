@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './App.scss';
+import logo from './logo.svg';
 
 async function fetchData(set) {
   const response = await fetch("/users");
@@ -31,21 +32,20 @@ A passwd was submitted: ${this.state.passwd}`);
 
   render() {
     return (
-      <div className="SignIn container-fluid center">
-        <form onSubmit={this.handleSubmit}>
-        <div class="row ">
-          <input type="text" name="login" placeholder="Your Login" value={this.state.login} onChange={this.handleLoginChange}/>
+      <div className="SignIn container-fluid">
+      <div class="LoginContainer card">
+          <img src={logo} alt="Logo" class="img img-fluid img-thumbnail "/>
+          <form onSubmit={this.handleSubmit}>
+            <div class="login-field-text"><input type="text" name="login" placeholder="Your Login" value={this.state.login} onChange={this.handleLoginChange}/></div>
+            <div class="passwd-field-text"><input type="password" name="passwd" placeholder="Your Password" value={this.state.passwd} onChange={this.handlePasswdChange}/></div>
+            <div class="Button-sign"><input type="submit" value="Sign In" /></div>
+            </form>
+
+          <div class="links">
+            <a href="www.google.com">Forgot Password?</a>
+            <a href="www.google.com">Sign up</a>
+          </div>
         </div>
-        <div class="row">
-          <input type="password" name="passwd" placeholder="Your Password" value={this.state.passwd} onChange={this.handlePasswdChange}/>
-        </div>
-        <div class="row">
-          <input type="submit" value="Sign In" />
-        </div>
-        </form>
-        <a href="www.google.com">Forgot Password?</a>
-        <br/>
-        <a href="www.google.com">Sign up</a>
       </div>
     );
   }

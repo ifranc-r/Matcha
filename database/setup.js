@@ -120,20 +120,22 @@ function setup_database(){
   });
 
   //CREATE ALL Tables in database
-  array_sql = Array_sql_table_()
-  array_sql.forEach(function(elements){
+  array_sql = Array_sql_table_();
+  array_sql.forEach(function(elements, index, array){
+    // Create tables one by one
     con.query(elements.sql, (err, result) => {
       if (err){
         console.log('error', err.message, err.stack)
         return;
       }
       console.log("table", elements.name_tab ,"as been created");
+      if (index === array.length - 1){
+      //End of connection
+        con.end((err) => {
+          console.log('End Connection')
+        });
+      }
     });
-  });
-
-  //End of connection
-  con.end((err) => {
-    console.log('End Connection')
   });
 }
 setup_database();

@@ -5,6 +5,18 @@
 
 .SignIn{
   text-align: center;
-  
-  // font-style: italic;
+  display: grid;
+  grid-template-columns: 40% auto 40%;
+  grid-template-rows: 45% auto 40%;
+  grid-template-areas:
+    ". . ."
+    ". login-container ."
+    ". . .";
+}
+.img{
+  width: 100%;
+  height: inherit;
+}
+.LoginContainer{
+  grid-area: login-container;
 }
